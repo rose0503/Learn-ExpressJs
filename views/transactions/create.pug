@@ -1,0 +1,28 @@
+extends ../layout/common.pug
+block content
+  .container.mt-2
+    h2.mb-4.d-flex.justify-content-center Thuê sách mới
+    form(action=("/transactions/create"), method="POST")
+      .form-group.row
+        label.col-form-label(for='u') Chọn người thuê:
+        .col-sm
+          select#u.form-control(name="userId")
+            if !isAdmin
+              option(value=user.id)= user.name
+            if isAdmin
+              each user in users
+                option(value=user.id)= user.name
+              else
+                option Không có
+      
+      .form-group.row
+        label.col-form-label(for='book') Chọn sách:
+        .col-sm
+          select#book.form-control(name="bookId",size="5" , multiple)
+            each book in books
+              option(value=book.id)= book.title
+            else
+              option Không có
+      button(type="submit", class="btn btn-primary mr-3") Tạo
+      a(href="/transactions", class="btn btn-secondary btn-md", role="button", aria-pressed="true") Hủy
+      
