@@ -79,6 +79,7 @@ module.exports.postCart=  async (req, res) => {
       db.get("sessions")
         .remove({ id: sessionId })
         .write();
+        
       su= "Bạn đã thuê sách thành công!!";
     }
    
@@ -90,7 +91,7 @@ module.exports.postCart=  async (req, res) => {
         success : su
       })
       return;
-      
+
     }
   } catch (error) {
     res.render("cart/cart", { message: error.message });
