@@ -9,6 +9,23 @@ const app = express();
 const pug = require("pug");
 const bodyParser = require('body-parser');
 var cookieParser = require("cookie-parser");
+var mongoose = require('mongoose');
+
+// mongoose.connect('mongodb://localhost/Books-Express', {
+//   useNewUrlParser: true, 
+//   useFindAndModify: false,
+//   useCreateIndex: true,
+//   useUnifiedTopology: true})
+// .then(_ => console.log("MongoDB connected"))
+// .catch(err => console.log("MongoDB can't connect", err));
+mongoose.connect(process.env.MONGO_URL, {
+  useNewUrlParser: true,
+  useFindAndModify: false,
+  useCreateIndex: true,
+  useUnifiedTopology: true
+})
+.then(_ => console.log("MongoDB connected"))
+.catch(err => console.log("MongoDB can't connect", err));
 
 var indexRoute = require("./routes/index.route.js");
 var authRoute = require("./routes/auth.route.js");

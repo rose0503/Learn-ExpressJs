@@ -3,6 +3,8 @@ const cloudinary = require("cloudinary").v2;
 const fs = require("fs");
 const shortid = require("shortid");
 
+var Book = require("../models/book.model");
+
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.CLOUD_KEY,
@@ -20,11 +22,17 @@ function checkIsImage(mimetype) {
   return acceptImageTypes.includes(mimetype);
 }
 
-module.exports.index =  (req, res) => {
+module.exports.index = async (req, res) => {
+  // res.render('books/index',{
+  //   books: db.get('books').value()
+  // })
+  // console.log(db.get('books').value())
+
+  var books = await Book.find(); 
+  
   res.render('books/index',{
-    books: db.get('books').value()
+  books: books
   })
-  console.log(db.get('books').value())
 }
 
  module.exports.create = (req, res) => {
